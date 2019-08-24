@@ -23,6 +23,18 @@ $(".save").on("click", function(e) {
   });
 });
 
+$("#scrape").on("click", function(e) {
+  e.preventDefault();
+
+  $.ajax({
+    method: "Get",
+    url: "/scrape"
+  }).then(function(data) {
+    // Log the response
+    console.log(data);
+  });
+});
+
 $(".remove").on("click", function(e) {
   e.preventDefault();
 

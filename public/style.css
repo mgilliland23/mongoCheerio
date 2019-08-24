@@ -48,6 +48,17 @@ li h3 {
   border-color: #96858f;
 }
 
+#scrape {
+  background-color: #6d7993;
+  border-color: #6d7993;
+  margin-top: 10px;
+}
+
+#scrape:hover {
+  background-color: #96858f;
+  border-color: white;
+}
+
 .remove {
   background-color: #6d7993;
   border-color: #6d7993;
