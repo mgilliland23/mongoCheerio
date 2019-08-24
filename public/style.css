@@ -48,6 +48,17 @@ li h3 {
   border-color: #96858f;
 }
 
+.remove {
+  background-color: #6d7993;
+  border-color: #6d7993;
+  margin-bottom: 5px;
+}
+
+.remove:hover {
+  background-color: #96858f;
+  border-color: #96858f;
+}
+
 .articles a:hover {
   color: #96858f !important;
   text-decoration: none !important;

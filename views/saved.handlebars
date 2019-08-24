@@ -1,6 +1,6 @@
 <div class="container">
     <div class="jumbotron">
-        <h1 class="display-4"> <i class='fas fa-database'></i> Mongo Scraper</h1>
+        <h1 class="display-4"> <i class="fas fa-newspaper"></i> Mongo Scraper</h1>
         <p class="lead">These are your saved articles!</p>
         <hr class="my-4">
         <p>These articles are scraped from Rising Stack website using Cheerio.</p>
@@ -8,13 +8,14 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <ul>
+            <ul class="articles">
                 {{#each articles}}
                 <li>
                     <h3>{{this.title}}</h3>
                     <p>{{this.content}}</p>
-                    <a href={{this.link}}>{{this.link}}</a>
-                    <button id="remove">Remove Article</button>
+                    <button data-id={{this._id}} class="btn btn-primary remove float-right"><i
+                            class="fas fa-minus-circle"></i> Remove
+                        Article</button>
                 </li>
                 {{/each}}
             </ul>
