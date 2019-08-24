@@ -39,6 +39,47 @@ mongoose.connect("mongodb://localhost/risingStackScraper", {
 
 // Routes
 
+//var burger = require("../models/burger.js");
+
+// Create all our routes and set up logic within those routes where required.
+app.get("/", function(req, res) {
+  // Grab the articles as a json
+
+  db.Article.find({})
+    .then(function(dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
+      console.log(dbArticle);
+
+      var articlesObj = {
+        articles: dbArticle
+      };
+      res.render("index", articlesObj);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
+app.get("/saved", function(req, res) {
+  // Grab the articles as a json
+
+  db.Article.find({ saved: true })
+    .then(function(dbArticle) {
+      // If we were able to successfully find Articles, send them back to the client
+      console.log(dbArticle);
+
+      var articlesObj = {
+        articles: dbArticle
+      };
+      res.render("index", articlesObj);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
 // A GET route for scraping the rising stack website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
@@ -68,6 +109,7 @@ app.get("/scrape", function(req, res) {
           .children("h1")
           .children("a")
           .attr("href");
+      result.saved = false;
 
       //console.log(result);
 

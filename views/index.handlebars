@@ -1,52 +1,26 @@
 <div class="container">
     <div class="jumbotron">
-        <h1 class="display-4"> <i class='fas fa-hamburger'></i> Burger Builder</h1>
-        <p class="lead">This is a simple app using Node, Express, MySQL, and Handlebars to demonstrate MVC design
+        <h1 class="display-4"> <i class='fas fa-database'></i> Mongo Scraper</h1>
+        <p class="lead">This is a simple app using Node, Express, MongoDB, and Handlebars.
             pattern</p>
         <hr class="my-4">
-        <p>Create whatever type of burger you would like and then devour it</p>
-        <p>Make it again, or create a new one. </p>
+        <p>These articles are scraped from Rising Stack website using Cheerio.</p>
+        <p>You can save articles that you like and access them later.</p>
 
     </div>
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <hr>
-            <h2 class="text-center">Add a Burger</h2>
-            <form class="create-form">
-
-                <div class="form-group text-center">
-                    <label for="burger">Burger Name:</label>
-                    <input type="text" id="burger" name="name">
-                    <button type="submit" id="submit"><i class='fas fa-hamburger'></i> Add Burger</button>
-                </div>
-            </form>
-            <hr>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Burgers that have not been eaten</h2>
-
             <ul>
-                {{#each burgers}}
-                {{#unless devoured}}
-                {{> burgers/burger-block devoured=false}}
-                {{/unless}}
+                {{#each articles}}
+                <li>
+                    <h3>{{this.title}}</h3>
+                    <p>{{this.content}}</p>
+                    <a href={{this.link}}>{{this.link}}</a>
+                    <button id="save">Save Article</button>
+                </li>
                 {{/each}}
             </ul>
-        </div>
-        <div class="col-md-6">
-            <h2>Burgers that have been devoured!</h2>
 
-            <ul>
-                {{#each burgers}}
-                {{#if devoured}}
-                {{> burgers/burger-block devoured=true}}
-                {{/if}}
-                {{/each}}
-            </ul>
         </div>
     </div>
-
-
 </div>
