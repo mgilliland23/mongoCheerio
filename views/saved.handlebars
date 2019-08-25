@@ -11,11 +11,24 @@
             <ul class="articles">
                 {{#each articles}}
                 <li>
-                    <h3>{{this.title}}</h3>
-                    <p>{{this.content}}</p>
-                    <button data-id={{this._id}} class="btn btn-primary remove float-right"><i
-                            class="fas fa-minus-circle"></i> Remove
-                        Article</button>
+                    <div class="card">
+                        <div class="row no-gutters">
+                            <div class="col-md-3">
+                                <img src={{this.img}} class="card-img img-fluid mx-auto d-block" alt="article_img">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{this.title}}</h5>
+                                    <p class="card-text">{{this.content}}</p>
+                                    <p class="card-text"><small class="text-muted float-right">{{this.date}}</small></p>
+
+                                    <button data-id={{this._id}} class="btn btn-primary remove float-right"><i
+                                            class="fas fa-minus-circle"></i> Remove
+                                        Article</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </li>
                 {{/each}}
             </ul>

@@ -54,6 +54,6 @@ $(".remove").on("click", function(e) {
   });
 
   $(this)
-    .parent()
+    .closest("li")
     .remove();
 });

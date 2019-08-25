@@ -12,7 +12,7 @@ module.exports = function(app) {
     db.Article.find({})
       .then(function(dbArticle) {
         // If we were able to successfully find Articles, send them back to the client
-        console.log(dbArticle);
+        //console.log(dbArticle);
 
         var articlesObj = {
           articles: dbArticle
@@ -29,7 +29,7 @@ module.exports = function(app) {
     db.Article.find({ saved: true })
       .then(function(dbArticle) {
         // If we were able to successfully find Articles, send them back to the client
-        console.log(dbArticle);
+        //. console.log(dbArticle);
 
         var articlesObj = {
           articles: dbArticle
@@ -82,17 +82,22 @@ module.exports = function(app) {
             .attr("src");
           result.saved = false;
 
-          console.log(result);
+          //console.log(result);
 
-          // Create a new Article using the `result` object built from scraping
-          db.Article.create(result)
+          // Insert a new Article into Mongo using the `result` object built from scraping
+          // Use findOneAndUpdate to avoid duplicate entries
+          db.Article.findOneAndUpdate(
+            result,
+            { $set: result },
+            { upsert: true, returnNewDocument: true }
+          )
             .then(function(dbArticle) {
               // View the added result in the console
-              //console.log(dbArticle);
+              console.log(dbArticle);
             })
             .catch(function(err) {
               // If an error occurred, log it
-              //console.log(err);
+              console.log(err);
             });
         });
 
