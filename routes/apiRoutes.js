@@ -10,6 +10,7 @@ var db = require("../models");
 module.exports = function(app) {
   app.get("/", function(req, res) {
     db.Article.find({})
+      .sort({ _id: -1 })
       .then(function(dbArticle) {
         // If we were able to successfully find Articles, send them back to the client
         //console.log(dbArticle);
