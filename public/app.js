@@ -31,6 +31,7 @@ $("#scrape").on("click", function(e) {
     url: "/scrape"
   }).then(function(data) {
     // Log the response
+    location.reload();
     console.log(data);
   });
 });

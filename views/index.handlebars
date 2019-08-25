@@ -4,7 +4,7 @@
         <p class="lead">This is a simple app using Node, Express, MongoDB, and Handlebars.
         </p>
         <hr class="my-4">
-        <p>These articles are scraped from Rising Stack website using Cheerio.</p>
+        <p>These articles are scraped from the New York Times website using Cheerio.</p>
         <p>You can save any articles that you like and access them later.</p>
         <button class="btn btn-primary" id="scrape"><i class="fas fa-plus-circle"></i> Scrape
             Articles</button>
@@ -14,15 +14,24 @@
             <ul class="articles">
                 {{#each articles}}
                 <li>
-                    <a href={{this.link}} target="_blank">
-                        <h3>{{this.title}}</h3>
-                    </a>
-                    <br>
-                    <p>{{this.content}}</p>
+                    <div class="card">
+                        <div class="row no-gutters">
+                            <div class="col-md-3">
+                                <img src={{this.img}} class="card-img img-fluid mx-auto d-block" alt="article_img">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{this.title}}</h5>
+                                    <p class="card-text">{{this.content}}</p>
+                                    <p class="card-text"><small class="text-muted float-right">{{this.date}}</small></p>
 
-                    <button data-id={{this._id}} class="btn btn-primary save float-right"><i
-                            class="fas fa-plus-circle"></i> Save
-                        Article</button>
+                                    <button data-id={{this._id}} class="btn btn-primary save float-right"><i
+                                            class="fas fa-plus-circle"></i> Save
+                                        Article</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </li>
                 {{/each}}
             </ul>

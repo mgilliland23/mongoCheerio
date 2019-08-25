@@ -45,57 +45,64 @@ module.exports = function(app) {
   // A GET route for scraping the rising stack website
   app.get("/scrape", function(req, res) {
     // First, we grab the body of the html with axios
-    axios.get("https://blog.risingstack.com/").then(function(response) {
-      // Then, we load that into cheerio and save it to $ for a shorthand selector
-      var $ = cheerio.load(response.data);
+    axios
+      .get("https://www.nytimes.com/section/technology")
+      .then(function(response) {
+        // Then, we load that into cheerio and save it to $ for a shorthand selector
+        var $ = cheerio.load(response.data);
 
-      // Now, we grab every article tag, and do the following:
-      $("article").each(function(i, element) {
-        // Save an empty result object
-        var result = {};
+        // Now, we grab every article tag, and do the following:
+        $("article").each(function() {
+          // Save an empty result object
+          var result = {};
 
-        // Add the text and href of every link, and save them as properties of the result object
-        result.title = $(this)
-          .children("header")
-          .children("h1")
-          .children("a")
-          .text();
-        result.content = $(this)
-          .children("section")
-          .text()
-          .trim();
-        result.link =
-          "https://blog.risingstack.com" +
-          $(this)
-            .children("header")
-            .children("h1")
+          // Add the text and href of every link, and save them as properties of the result object
+          result.title = $(this)
+            .children("div")
+            .children("h2")
             .children("a")
-            .attr("href");
-        result.saved = false;
+            .text();
+          result.content = $(this)
+            .children("div")
+            .children("p")
+            .first()
+            .text()
+            .trim();
+          result.link =
+            "https://www.nytimes.com" +
+            $(this)
+              .children("div")
+              .children("h2")
+              .children("a")
+              .attr("href");
+          result.img = $(this)
+            .children("figure")
+            .children("a")
+            .children("img")
+            .attr("src");
+          result.saved = false;
 
-        //console.log(result);
+          console.log(result);
 
-        // Create a new Article using the `result` object built from scraping
-        db.Article.create(result)
-          .then(function(dbArticle) {
-            // View the added result in the console
-            console.log(dbArticle);
-          })
-          .catch(function(err) {
-            // If an error occurred, log it
-            console.log(err);
-          });
+          // Create a new Article using the `result` object built from scraping
+          db.Article.create(result)
+            .then(function(dbArticle) {
+              // View the added result in the console
+              //console.log(dbArticle);
+            })
+            .catch(function(err) {
+              // If an error occurred, log it
+              //console.log(err);
+            });
+        });
+
+        // Send a message to the client
+        res.send("articles scraped");
       });
-
-      // Send a message to the client
-      res.send("Scrape Complete");
-    });
   });
 
   // Route for saving an Article
   app.post("/articles/add", function(req, res) {
-    var bool;
-
     // Create a new note and pass the req.body to the entry
     db.Article.update({ _id: req.body.id }, { $set: { saved: true } })
       .then(function(dbArticle) {
