@@ -4,4 +4,4 @@ This is a web app powered by Node, Express, Handlebars, and MongoDB. News articl
 
 https://pure-temple-69631.herokuapp.com/
 
-![image](ScreenShot.png)
+![image](ScreenShot1.png)
